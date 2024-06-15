@@ -29,3 +29,5 @@ class Vector3 {
         return vec.x * this.x + vec.y * this.y + vec.z * this.z;
     }
 }
+
+export { Vector3 }

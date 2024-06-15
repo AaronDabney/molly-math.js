@@ -170,3 +170,5 @@ class Quaternion {
         return new Quaternion();
     }
 }
+
+export { Quaternion }

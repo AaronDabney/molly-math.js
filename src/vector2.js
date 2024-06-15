@@ -29,3 +29,5 @@ class Vector2 {
         return this.x * input.x + this.y + input.y;
     }
 }
+
+export { Vector2 }
