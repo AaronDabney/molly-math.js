@@ -5,8 +5,8 @@ class Vector3 {
         this.z = z;
     }
 
-    get mag() {
-        return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z)
+    mag() {
+        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
     }
 
     mult(scalar) {
@@ -14,15 +14,11 @@ class Vector3 {
     }
 
     norm() {
-        return new Vector2(this.x/this.mag, this.y/this.mag, this.z/this.mag)
+        return new Vector2(this.x / this.mag, this.y / this.mag, this.z / this.mag)
     }
 
     add(input) {
         return new Vector3(this.x + input.x, this.y + input.y, this.z + input.z)
-    }
-
-    preprocess(input) {
-        return new Vector3(input.x, input.y, input.z);
     }
 
     toVector2() {
@@ -30,7 +26,6 @@ class Vector3 {
     }
 
     dot(vec) {
-        return vec.x*this.x + vec.y*this.y + vec.z*this.z;
+        return vec.x * this.x + vec.y * this.y + vec.z * this.z;
     }
 }
-
