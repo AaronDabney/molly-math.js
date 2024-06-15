@@ -9,7 +9,6 @@ class Quaternion {
     print() {
         console.log(`w: ${this.w} x: ${this.x} y: ${this.y} z: ${this.z}`);
         console.log(`xAngle: ${this.angles.x} yAngle: ${this.angles.y} zAngle: ${this.angles.z}`);
-        console.log(Math.sqrt(this.w*this.w + this.x*this.x + this.y*this.y + this.z*this.z));
     }
 
     mult(q) {
@@ -17,15 +16,15 @@ class Quaternion {
         const p = this;
         const w = p.w*q.w - p.x*q.x - p.y*q.y - p.z*q.z;
         const x = p.w*q.x + p.x*q.w + p.y*q.z - p.z*q.y;
-        const y = p.w*q.y - p.x*q.z + p.y*q.w + p.z*q.x;
-        const z = p.w*q.z + p.x*q.y - p.y*q.x + p.z*q.w;
+        const y = p.w*q.y + p.y*q.w + p.z*q.x - p.x*q.z;
+        const z = p.w*q.z + p.z*q.w + p.x*q.y - p.y*q.x;
     
         return new Quaternion(w, x, y, z)
     }
 
     rotateVec(input) {
         const vectorQuaternion = new Quaternion(0, input.x, input.y, input.z);
-        const rotatedQuaternion = this.mult(vectorQuaternion).mult(this.conjugate);
+        let rotatedQuaternion = this.mult(vectorQuaternion).mult(this.conjugate);
         return new Vector3(rotatedQuaternion.x, rotatedQuaternion.y, rotatedQuaternion.z);
     }
 
