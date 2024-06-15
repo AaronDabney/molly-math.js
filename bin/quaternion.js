@@ -68,8 +68,9 @@ class Quaternion {
     }
 
     static euler(roll, pitch, yaw) {
-        // 3-2-1 sequence
-        let conversionRatio = Math.PI / 360;
+        // Z-Y-X sequence rotation
+        const degreesToRadians = Math.PI / 180;
+        const conversionRatio = degreesToRadians * 0.5;
     
         roll *= conversionRatio;
         pitch *= conversionRatio;
@@ -90,43 +91,57 @@ class Quaternion {
         return new Quaternion(w, x, y, z);
     }
 
+    /**
+     * Useful in comparing relative differences in angle between quaternions
+     * @param {*} quat 
+     * @returns 
+     */
     differenceMagnitude(quat) {
-        let xBasis = new Vector3(1, 0, 0);
-        let yBasis = new Vector3(0, 1, 0);
-        let zBasis = new Vector3(0, 0, 1);
+        const xBasis = new Vector3(1, 0, 0);
+        const yBasis = new Vector3(0, 1, 0);
+        const zBasis = new Vector3(0, 0, 1);
 
-        let xDiff = this.rotateVec(xBasis).dot(quat.rotateVec(xBasis));
-        let yDiff = this.rotateVec(yBasis).dot(quat.rotateVec(yBasis));
-        let zDiff = this.rotateVec(zBasis).dot(quat.rotateVec(zBasis));
+        const xDiff = this.rotateVec(xBasis).dot(quat.rotateVec(xBasis));
+        const yDiff = this.rotateVec(yBasis).dot(quat.rotateVec(yBasis));
+        const zDiff = this.rotateVec(zBasis).dot(quat.rotateVec(zBasis));
 
-        let xAngle = Math.acos(xDiff) * (180/Math.PI);
-        let yAngle = Math.acos(yDiff) * (180/Math.PI);
-        let zAngle = Math.acos(zDiff) * (180/Math.PI);
+        const xAngle = Math.acos(xDiff) * (180 / Math.PI);
+        const yAngle = Math.acos(yDiff) * (180 / Math.PI);
+        const zAngle = Math.acos(zDiff) * (180 / Math.PI);
 
-        let diffMagnitude = Math.sqrt(xAngle*xAngle + yAngle*yAngle, zAngle*zAngle);
+        const diffMagnitude = Math.sqrt(xAngle*xAngle + yAngle*yAngle, zAngle*zAngle);
 
         return diffMagnitude;
     }
 
     static randomQuaternion() {
-        let rand = () => (Math.random() * 2 ) - 1;
-        let quat = new Quaternion(rand(), rand(), rand(), rand())
+        const rand = () => (Math.random() * 2 ) - 1;
+        const quat = new Quaternion(rand(), rand(), rand(), rand())
         return quat.normalize();
     }
 
     angle(q) {
-
-        let vec = new Vector3(1, 0, 0);
-        let dot = this.rotateVec(vec).dot(q.rotateVec(vec));
-        let theta = Math.acos(dot);
+        const vec = new Vector3(1, 0, 0);
+        const dot = this.rotateVec(vec).dot(q.rotateVec(vec));
+        const theta = Math.acos(dot);
 
         return theta;
     }
 
+    /**
+     * Negated quaterions behave identically to original
+     * @returns 
+     */
     flipSign() {
         return new Quaternion(-this.w, -this.x, -this.y, -this.z);
     }
 
+    /**
+     * Raw vector distance between 2 quaternions
+     * Both quaternions are first converted to representations with positive w components
+     * @param {*} q 
+     * @returns 
+     */
     dist(q) {
         if (q.w < 0) {
             q = q.flipSign();
@@ -136,12 +151,12 @@ class Quaternion {
             t = t.flipSign();
         }
         
-        let w = t.w - q.w;
-        let x = t.x - q.x;
-        let y = t.y - q.y;
-        let z = t.z - q.z;
+        const w = t.w - q.w;
+        const x = t.x - q.x;
+        const y = t.y - q.y;
+        const z = t.z - q.z;
 
-        let dist = Math.sqrt(w*w + x*x + y*y + z*z);
+        const dist = Math.sqrt(w*w + x*x + y*y + z*z);
 
         return dist;
     }
