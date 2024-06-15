@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-project",
+  "name": "molly-math.js",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "molly-math.js is a simple Javascript library for vector and quaternion algebra.",
   "private": true,
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
