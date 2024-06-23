@@ -1,5 +1,5 @@
-Molly Math
+molly-math.js
 --
-Molly math is a simple JS library for quaternion and vector algebra.
+molly-math.js is a simple JS library for the visualization quaternion and vector algebra.
 
 ![Molly](img/molly.jpeg)
